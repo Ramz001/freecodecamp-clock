@@ -1,9 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer base{
+  /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: auto;
+}
+}
+
 @layer components {
-  .options-btn{
-    @apply text-sm xl:text-lg h-8 w-24 lg:h-12 lg:w-36 xl:h-16 xl:w-44 rounded-full shadow-sm 
+  .options-btn {
+    @apply text-sm xl:text-lg h-8 w-24 lg:h-12 lg:w-36 xl:h-16 xl:w-44 rounded-full 
+    shadow-sm hover:text-gray-100 transition delay-75 ease-in-out;
+  }
+  .settings-title {
+    @apply xl:text-xl text-lg font-normal tracking-[.35rem];
+  }
+  .select-font-btn {
+    @apply bg-gray-200 w-8 h-8 rounded-full;
+  }
+  .select-color-btn {
+    @apply w-8 h-8 rounded-full cursor-pointer flex justify-center items-center bg-slate-100;
   }
 }

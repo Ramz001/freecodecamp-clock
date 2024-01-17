@@ -5,7 +5,7 @@ export enum TimerTypes {
 }
 
 export enum TimerStatus{
-  active = 'active',
+  resumed = 'resumed',
   paused = 'paused'
 }
 
@@ -13,6 +13,12 @@ export enum SelectedColor{
   blue = 'bg-cyan-500',
   red = 'bg-rose-500',
   purple = 'bg-purple-500'
+}
+
+export enum SelectedFont{
+  roboto = "font-['Roboto']",
+  serif = "font-['DM_Serif_Display']",
+  playfair = "font-['Playfair_Display']"
 }
 
 export type TimerStateTypes = {
@@ -23,7 +29,14 @@ export type TimerStateTypes = {
   shortBreakTimeLeft: number;
   longBreakTimeLeft: number;
   timerStatus: TimerStatus;
-  selectedFont: string;
+  selectedFont: SelectedFont;
   selectedColor: SelectedColor
 }
 
+export type SettingsType = {
+  pomodoroTimeLeft: number;
+  shortBreakTimeLeft: number;
+  longBreakTimeLeft: number;
+  selectedFont: SelectedFont;
+  selectedColor: SelectedColor;
+}

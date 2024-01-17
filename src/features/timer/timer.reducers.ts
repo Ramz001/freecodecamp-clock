@@ -1,5 +1,49 @@
-import { SelectedColor, TimerStateTypes, TimerTypes } from "./timer.types";
+import {
+  SelectedColor,
+  SelectedFont,
+  TimerStateTypes,
+  TimerStatus,
+  TimerTypes,
+  SettingsType,
+} from "./timer.types";
 import { PayloadAction } from "@reduxjs/toolkit";
+
+export const changeTimerTypeReducer = (
+  state: TimerStateTypes,
+  action: PayloadAction<TimerTypes>
+) => {
+  const buttonType = action.payload;
+
+  if (buttonType === TimerTypes.pomodoro) {
+    state.timerType = TimerTypes.pomodoro;
+    state.timeLeft = state.pomodoroTimeLeft;
+  }
+  if (buttonType === TimerTypes.shortBreak) {
+    state.timerType = TimerTypes.shortBreak;
+    state.timeLeft = state.shortBreakTimeLeft;
+  }
+  if (buttonType === TimerTypes.longBreak) {
+    state.timerType = TimerTypes.longBreak;
+    state.timeLeft = state.longBreakTimeLeft;
+  }
+};
+
+export const changeSelectedFontReducer = (
+  state: TimerStateTypes,
+  action: PayloadAction<SelectedFont>
+) => {
+  const fontType = action.payload;
+
+  if (fontType === SelectedFont.roboto) {
+    state.selectedFont = SelectedFont.roboto;
+  }
+  if (fontType === SelectedFont.playfair) {
+    state.selectedFont = SelectedFont.playfair;
+  }
+  if (fontType === SelectedFont.serif) {
+    state.selectedFont = SelectedFont.serif;
+  }
+};
 
 export const changeSelectedColorReducer = (
   state: TimerStateTypes,
@@ -18,19 +62,34 @@ export const changeSelectedColorReducer = (
   }
 };
 
-export const changeTimerTypeReducer = (
+export const configureSettingsReducer = (
   state: TimerStateTypes,
-  action: PayloadAction<TimerTypes>
+  action: PayloadAction<SettingsType>
 ) => {
-  const buttonType = action.payload;
+  const {
+    pomodoroTimeLeft,
+    shortBreakTimeLeft,
+    longBreakTimeLeft,
+    selectedFont,
+    selectedColor,
+  } = action.payload;
 
-  if (buttonType === TimerTypes.pomodoro) {
-    state.timerType = TimerTypes.pomodoro;
-  }
-  if (buttonType === TimerTypes.shortBreak) {
-    state.timerType = TimerTypes.shortBreak;
-  }
-  if (buttonType === TimerTypes.longBreak) {
-    state.timerType = TimerTypes.longBreak;
+  state.pomodoroTimeLeft = pomodoroTimeLeft
+  state.shortBreakTimeLeft = shortBreakTimeLeft
+  state.longBreakTimeLeft = longBreakTimeLeft
+  state.selectedColor = selectedColor
+  state.selectedFont = selectedFont
+};
+
+export const toggleTimerStatusReducer = (
+  state: TimerStateTypes,
+  action: PayloadAction<TimerStatus>
+) => {
+  state.timerStatus = action.payload;
+};
+
+export const calculateTimeLeftReducer = (state: TimerStateTypes) => {
+  if (state.timerStatus === TimerStatus.resumed) {
+    state.timeLeft = state.timeLeft - 1;
   }
 };

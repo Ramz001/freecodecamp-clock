@@ -1,16 +1,19 @@
-import { useAppSelector, useAppDispatch } from "../../features/timer/timer.hooks";
+import {
+  useAppSelector,
+  useAppDispatch,
+} from "../../features/timer/timer.hooks";
 import { TimerTypes } from "../../features/timer/timer.types";
 import { changeTimerType } from "../../features/timer/timer.slice";
 
 const Options = () => {
   const { selectedColor, timerType } = useAppSelector((store) => store.timer);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-  const activeButtonStyles = `${selectedColor}  text-blue-950`;
+  const activeButtonStyles = `${selectedColor}  text-blue-950 hover:text-blue-950`;
 
   const handleButtons = (buttonType: TimerTypes) => {
-    dispatch(changeTimerType(buttonType))
-  }
+    dispatch(changeTimerType(buttonType));
+  };
 
   return (
     <div

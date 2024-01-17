@@ -1,22 +1,29 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import {
   TimerStateTypes,
   TimerTypes,
   TimerStatus,
   SelectedColor,
+  SelectedFont,
 } from "./timer.types";
-import { changeSelectedColorReducer, changeTimerTypeReducer } from "./timer.reducers";
-
+import {
+  calculateTimeLeftReducer,
+  changeSelectedColorReducer,
+  changeSelectedFontReducer,
+  changeTimerTypeReducer,
+  toggleTimerStatusReducer,
+  configureSettingsReducer
+} from "./timer.reducers";
 
 const initialState: TimerStateTypes = {
   isSettingsModalOpen: false,
   timerType: TimerTypes.pomodoro,
-  timeLeft: 0,
-  pomodoroTimeLeft: 25,
-  shortBreakTimeLeft: 5,
-  longBreakTimeLeft: 15,
+  timeLeft: 1500,
+  pomodoroTimeLeft: 1500,
+  shortBreakTimeLeft: 300,
+  longBreakTimeLeft: 900,
   timerStatus: TimerStatus.paused,
-  selectedFont: "",
+  selectedFont: SelectedFont.roboto,
   selectedColor: SelectedColor.red,
 };
 
@@ -25,14 +32,25 @@ const timer = createSlice({
   initialState,
   reducers: {
     togglePopup: (state) => {
-      state.isSettingsModalOpen = !state.isSettingsModalOpen
+      state.isSettingsModalOpen = !state.isSettingsModalOpen;
     },
+    calculateTimeLeft: calculateTimeLeftReducer,
     changeTimerType: changeTimerTypeReducer,
     changeSelectedColor: changeSelectedColorReducer,
-    
+    changeSelectedFont: changeSelectedFontReducer,
+    toggleTimerStatus: toggleTimerStatusReducer,
+    configureSettings: configureSettingsReducer
   },
 });
 
-export const { togglePopup, changeTimerType, changeSelectedColor } = timer.actions
+export const {
+  togglePopup,
+  changeTimerType,
+  changeSelectedColor,
+  changeSelectedFont,
+  toggleTimerStatus,
+  calculateTimeLeft,
+  configureSettings
+} = timer.actions;
 
 export default timer.reducer;
