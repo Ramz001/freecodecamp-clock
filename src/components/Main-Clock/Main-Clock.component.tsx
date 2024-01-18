@@ -23,7 +23,7 @@ const MainClock = () => {
       }
     }, 1000);
     return () => clearInterval(interval);
-  }, [timeLeft, timerStatus]);
+  }, [timeLeft, timerStatus, dispatch]);
 
   const handleTimerBtn = () => {
     if (timerStatus === TimerStatus.paused) {
