@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   useAppSelector,
   useAppDispatch,
@@ -35,19 +35,19 @@ const MainClock = () => {
 
   return (
     <div
-      className="xl:w-96 xl:h-96 relative text-blue-200 mx-auto rounded-full 
+      className="xl:w-96 xl:h-96 md:h-80 md:w-80 sm:w-72 sm:h-72 w-64 h-64 relative text-blue-200 mx-auto rounded-full 
     shadow-2xl"
     >
       <div
         className="flex relative flex-col justify-center items-center h-full 
       gap-y-5 bg-indigo-950 rounded-full shadow-inner"
       >
-        <span className="text-8xl font-bold">
+        <span className="text-5xl md:text-7xl lg:text-7xl xl:text-8xl font-bold">
           {minutes < 10 ? "0" + minutes : minutes}:
           {seconds < 10 ? "0" + seconds : seconds}
         </span>
         <button
-          className="font-semibold text-lg tracking-[1rem] mx-auto uppercase pl-4"
+          className="font-semibold text-sm sm:text-base md:text-lg tracking-[1rem] mx-auto uppercase pl-4"
           onClick={handleTimerBtn}
         >
           {timerStatus === TimerStatus.paused ? "resume" : "pause"}

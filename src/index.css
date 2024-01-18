@@ -21,11 +21,11 @@ input[type=number] {
 
 @layer components {
   .options-btn {
-    @apply text-sm xl:text-lg h-8 w-24 lg:h-12 lg:w-36 xl:h-16 xl:w-44 rounded-full 
+    @apply text-sm xl:text-lg h-8 w-20 sm:h-10 sm:w-32 md:h-12 md:w-36 xl:h-16 xl:w-44 rounded-full 
     shadow-sm hover:text-gray-100 transition delay-75 ease-in-out;
   }
   .settings-title {
-    @apply xl:text-xl text-lg font-normal tracking-[.35rem];
+    @apply xl:text-xl text-base sm:text-lg font-normal tracking-[.35rem];
   }
   .select-font-btn {
     @apply bg-gray-200 w-8 h-8 rounded-full;

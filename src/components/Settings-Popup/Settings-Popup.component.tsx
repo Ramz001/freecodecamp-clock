@@ -18,7 +18,7 @@ import {
   SelectedColor,
   SelectedFont,
 } from "../../features/timer/timer.types";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 
 const SettingsPopup = () => {
   const {
@@ -39,6 +39,17 @@ const SettingsPopup = () => {
     selectedColor,
   });
 
+  enum inputType {
+    pomodoro = "pomodoro",
+    shortBreak = "short break",
+    longBreak = "long break",
+  }
+
+  enum operationType {
+    increment = "increment",
+    decrement = "decrement",
+  }
+
   const handlePopup = () => {
     dispatch(togglePopup());
   };
@@ -55,23 +66,45 @@ const SettingsPopup = () => {
     });
   };
 
-  const handleInputElements = (
-    e: ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => {
-    // console.log(e.target.value)
-    // const value = e.target.value
-    // console.log(settings)
-    // setSettings((settings) => {
-    //   return {
-    //     ...settings,
-    //     pomodoroTimeLeft:
-    //   }
-    // })
+  const handleInputs = (type: operationType, input: inputType) => {
+    if (type === "increment" && input === inputType.pomodoro) {
+      setSettings({
+        ...settings,
+        pomodoroTimeLeft: (settings.pomodoroTimeLeft += 60),
+      });
+    } else if (type === "decrement" && input === inputType.pomodoro) {
+      setSettings({
+        ...settings,
+        pomodoroTimeLeft: (settings.pomodoroTimeLeft -= 60),
+      });
+    }
+    if (type === "increment" && input === inputType.shortBreak) {
+      setSettings({
+        ...settings,
+        shortBreakTimeLeft: (settings.shortBreakTimeLeft += 60),
+      });
+    } else if (type === "decrement" && input === inputType.shortBreak) {
+      setSettings({
+        ...settings,
+        shortBreakTimeLeft: (settings.shortBreakTimeLeft -= 60),
+      });
+    }
+    if (type === "increment" && input === inputType.longBreak) {
+      setSettings({
+        ...settings,
+        longBreakTimeLeft: (settings.longBreakTimeLeft += 60),
+      });
+    } else if (type === "decrement" && input === inputType.longBreak) {
+      setSettings({
+        ...settings,
+        longBreakTimeLeft: (settings.longBreakTimeLeft -= 60),
+      });
+    }
   };
 
   const handleSettings = () => {
     dispatch(configureSettings(settings));
+    dispatch(togglePopup());
   };
 
   return (
@@ -79,18 +112,18 @@ const SettingsPopup = () => {
       <img
         src={GearSolid}
         alt="gear icon"
-        className="w-8 h-8 cursor-pointer shadow-sm "
+        className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 cursor-pointer shadow"
         onClick={handlePopup}
       />
 
       {isSettingsModalOpen && (
         <Backdrop onClick={handlePopup}>
           <div
-            className="bg-gray-100 px-8 pb-8 pt-4 opacity-100 rounded-2xl text-gray-800 z-10 relative"
+            className="bg-gray-100 px-8 sm:px-6 md:px-8 pb-8 pt-4 opacity-100 rounded-2xl text-gray-800 z-10 relative"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center border-b border-gray-500 justify-between h-16">
-              <h3 className="text-3xl font-bold">Settings</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold">Settings</h3>
               <img
                 src={XMarkSolid}
                 alt="x mark icon"
@@ -101,28 +134,41 @@ const SettingsPopup = () => {
             <div className="my-6">
               <h4 className="settings-title mb-4">Time(minutes)</h4>
               <div
-                className="flex gap-2 2xl:gap-4 text-sm tracking-wide font-normal 
-                text-gray-500 border-b border-gray-500 pb-4"
+                className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 text-xs tracking-wide font-normal 
+                text-gray-500 sm:text-base border-b border-gray-500 pb-4"
               >
                 <div className="flex-col flex justify-center items-start relative">
                   <label htmlFor={TimerTypes.pomodoro}>pomodoro</label>
                   <input
                     type="number"
                     id={TimerTypes.pomodoro}
-                    className="xl:w-36 h-12 rounded-xl bg-gray-200 py-2 px-3 text-gray-900"
+                    className="w-56 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
+                    bg-gray-200 py-2 px-3 text-gray-900"
                     value={Math.floor(settings.pomodoroTimeLeft / 60)}
-                    onChange={(e) => handleInputElements(e, "pomodoroTimeLeft")}
+                    readOnly
                   />
-                  <div className="flex flex-col absolute right-2 bottom-2">
+                  <div className="flex flex-col absolute right-3 sm:right-2 bottom-2 md:bottom-1 sm:bottom-2">
                     <img
                       src={AngleUpSolid}
                       alt="angle down icon"
                       className="w-4 h-4 cursor-pointer"
+                      onClick={() =>
+                        handleInputs(
+                          operationType.increment,
+                          inputType.pomodoro
+                        )
+                      }
                     />
                     <img
                       src={AngleDownSolid}
                       alt="angle down icon"
                       className="w-4 h-4 cursor-pointer"
+                      onClick={() =>
+                        handleInputs(
+                          operationType.decrement,
+                          inputType.pomodoro
+                        )
+                      }
                     />
                   </div>
                 </div>
@@ -131,19 +177,33 @@ const SettingsPopup = () => {
                   <input
                     type="number"
                     id={TimerTypes.shortBreak}
-                    className="xl:w-36 h-12 rounded-xl bg-gray-200 py-2 px-3 text-gray-900"
+                    className="w-56 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
+                    bg-gray-200 py-2 px-3 text-gray-900"
                     value={Math.floor(settings.shortBreakTimeLeft / 60)}
+                    readOnly
                   />
-                  <div className="flex flex-col absolute right-2 bottom-2">
+                  <div className="flex flex-col absolute right-3 sm:right-2 bottom-2 md:bottom-1 sm:bottom-2">
                     <img
                       src={AngleUpSolid}
                       alt="angle down icon"
                       className="w-4 h-4 cursor-pointer"
+                      onClick={() =>
+                        handleInputs(
+                          operationType.increment,
+                          inputType.shortBreak
+                        )
+                      }
                     />
                     <img
                       src={AngleDownSolid}
                       alt="angle down icon"
                       className="w-4 h-4 cursor-pointer"
+                      onClick={() =>
+                        handleInputs(
+                          operationType.decrement,
+                          inputType.shortBreak
+                        )
+                      }
                     />
                   </div>
                 </div>
@@ -152,19 +212,33 @@ const SettingsPopup = () => {
                   <input
                     type="number"
                     id={TimerTypes.longBreak}
-                    className="xl:w-36 h-12 rounded-xl bg-gray-200 py-2 px-3 text-gray-900"
+                    className="w-56 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
+                    bg-gray-200 py-2 px-3 text-gray-900"
                     value={Math.floor(settings.longBreakTimeLeft / 60)}
+                    readOnly
                   />
-                  <div className="flex flex-col absolute right-2 bottom-2">
+                  <div className="flex flex-col absolute right-3 sm:right-2 bottom-2 md:bottom-1 sm:bottom-2">
                     <img
                       src={AngleUpSolid}
                       alt="angle down icon"
                       className="w-4 h-4 cursor-pointer"
+                      onClick={() =>
+                        handleInputs(
+                          operationType.increment,
+                          inputType.longBreak
+                        )
+                      }
                     />
                     <img
                       src={AngleDownSolid}
                       alt="angle down icon"
                       className="w-4 h-4 cursor-pointer"
+                      onClick={() =>
+                        handleInputs(
+                          operationType.decrement,
+                          inputType.longBreak
+                        )
+                      }
                     />
                   </div>
                 </div>
