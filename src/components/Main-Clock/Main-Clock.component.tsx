@@ -42,7 +42,7 @@ const MainClock = () => {
         className="flex relative flex-col justify-center items-center h-full 
       gap-y-5 bg-indigo-950 rounded-full shadow-inner"
       >
-        <span className="text-5xl md:text-7xl lg:text-7xl xl:text-8xl font-bold">
+        <span className="text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-bold">
           {minutes < 10 ? "0" + minutes : minutes}:
           {seconds < 10 ? "0" + seconds : seconds}
         </span>

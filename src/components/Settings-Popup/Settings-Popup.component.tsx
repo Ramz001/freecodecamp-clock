@@ -119,7 +119,7 @@ const SettingsPopup = () => {
       {isSettingsModalOpen && (
         <Backdrop onClick={handlePopup}>
           <div
-            className="bg-gray-100 px-8 sm:px-6 md:px-8 pb-8 pt-4 opacity-100 rounded-2xl text-gray-800 z-10 relative"
+            className="bg-gray-100 px-7 sm:px-6 md:px-8 pb-8 pt-4 opacity-100 rounded-2xl text-gray-800 z-10 relative"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center border-b border-gray-500 justify-between h-16">
@@ -142,7 +142,7 @@ const SettingsPopup = () => {
                   <input
                     type="number"
                     id={TimerTypes.pomodoro}
-                    className="w-56 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
+                    className="w-60 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
                     bg-gray-200 py-2 px-3 text-gray-900"
                     value={Math.floor(settings.pomodoroTimeLeft / 60)}
                     readOnly
@@ -177,7 +177,7 @@ const SettingsPopup = () => {
                   <input
                     type="number"
                     id={TimerTypes.shortBreak}
-                    className="w-56 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
+                    className="w-60 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
                     bg-gray-200 py-2 px-3 text-gray-900"
                     value={Math.floor(settings.shortBreakTimeLeft / 60)}
                     readOnly
@@ -212,7 +212,7 @@ const SettingsPopup = () => {
                   <input
                     type="number"
                     id={TimerTypes.longBreak}
-                    className="w-56 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
+                    className="w-60 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
                     bg-gray-200 py-2 px-3 text-gray-900"
                     value={Math.floor(settings.longBreakTimeLeft / 60)}
                     readOnly
