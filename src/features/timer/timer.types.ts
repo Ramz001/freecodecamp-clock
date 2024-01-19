@@ -10,7 +10,7 @@ export enum TimerStatus{
 }
 
 export enum SelectedColor{
-  blue = 'bg-cyan-500',
+  blue = 'bg-blue-500',
   red = 'bg-rose-500',
   purple = 'bg-purple-500'
 }

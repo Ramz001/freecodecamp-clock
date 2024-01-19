@@ -9,7 +9,7 @@ const Options = () => {
   const { selectedColor, timerType } = useAppSelector((store) => store.timer);
   const dispatch = useAppDispatch();
 
-  const activeButtonStyles = `${selectedColor}  text-blue-950 hover:text-blue-950`;
+  const activeButtonStyles = `${selectedColor} text-blue-950 hover:text-blue-950`;
 
   const handleButtons = (buttonType: TimerTypes) => {
     dispatch(changeTimerType(buttonType));
@@ -23,7 +23,7 @@ const Options = () => {
       <button
         className={`${
           timerType === TimerTypes.pomodoro ? activeButtonStyles : ""
-        } options-btn`}
+        } options-btn `}
         onClick={() => handleButtons(TimerTypes.pomodoro)}
       >
         pomodoro

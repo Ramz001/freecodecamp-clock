@@ -112,14 +112,16 @@ const SettingsPopup = () => {
       <img
         src={GearSolid}
         alt="gear icon"
-        className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 cursor-pointer shadow"
+        className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 cursor-pointer active:rotate-90 
+        hover:rotate-90 selection:rotate-90 ease-linear delay-100"
         onClick={handlePopup}
       />
 
       {isSettingsModalOpen && (
         <Backdrop onClick={handlePopup}>
           <div
-            className="bg-gray-100 px-7 sm:px-6 md:px-8 pb-8 pt-4 opacity-100 rounded-2xl text-gray-800 z-10 relative"
+            className="bg-gray-100 px-7 sm:px-6 md:px-8 pb-8 pt-4 opacity-100 
+            rounded-2xl text-gray-800 z-10 relative"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center border-b border-gray-500 justify-between h-16">
@@ -321,9 +323,9 @@ const SettingsPopup = () => {
               </div>
             </div>
             <button
-              className={`${selectedColor} text-gray-100 font-semibold font-lg 
+              className={`${selectedColor} text-white font-semibold font-lg 
               py-3 px-10 rounded-xl absolute -bottom-5 right-0 mx-auto left-0 w-32
-              flex justify-center items-center`}
+              flex justify-center items-center shadow-md`}
               onClick={handleSettings}
             >
               Apply
