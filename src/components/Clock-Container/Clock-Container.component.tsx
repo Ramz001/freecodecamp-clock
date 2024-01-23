@@ -8,7 +8,7 @@ const ClockContainer = () => {
   const { selectedFont } = useAppSelector(store => store.timer)
   
   return (
-    <div className={`${selectedFont} bg-blue-950 h-svh xl:h-screen relative flex flex-col gap-y-10 py-6`}>
+    <div className={`${selectedFont} bg-blue-950 min-h-svh relative flex flex-col gap-y-10 py-6`}>
       <Icon />
       <Options />
       <MainClock />

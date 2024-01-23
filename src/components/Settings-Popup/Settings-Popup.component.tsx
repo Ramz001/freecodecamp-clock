@@ -72,7 +72,11 @@ const SettingsPopup = () => {
         ...settings,
         pomodoroTimeLeft: (settings.pomodoroTimeLeft += 60),
       });
-    } else if (type === "decrement" && input === inputType.pomodoro) {
+    } else if (
+      type === "decrement" &&
+      input === inputType.pomodoro &&
+      settings.pomodoroTimeLeft > 600
+    ) {
       setSettings({
         ...settings,
         pomodoroTimeLeft: (settings.pomodoroTimeLeft -= 60),
@@ -83,7 +87,11 @@ const SettingsPopup = () => {
         ...settings,
         shortBreakTimeLeft: (settings.shortBreakTimeLeft += 60),
       });
-    } else if (type === "decrement" && input === inputType.shortBreak) {
+    } else if (
+      type === "decrement" &&
+      input === inputType.shortBreak &&
+      settings.shortBreakTimeLeft > 60
+    ) {
       setSettings({
         ...settings,
         shortBreakTimeLeft: (settings.shortBreakTimeLeft -= 60),
@@ -94,7 +102,11 @@ const SettingsPopup = () => {
         ...settings,
         longBreakTimeLeft: (settings.longBreakTimeLeft += 60),
       });
-    } else if (type === "decrement" && input === inputType.longBreak) {
+    } else if (
+      type === "decrement" &&
+      input === inputType.longBreak &&
+      settings.longBreakTimeLeft > 300
+    ) {
       setSettings({
         ...settings,
         longBreakTimeLeft: (settings.longBreakTimeLeft -= 60),

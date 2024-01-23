@@ -7,21 +7,34 @@ import {
   toggleTimerStatus,
   calculateTimeLeft,
 } from "../../features/timer/timer.slice";
-import { TimerStatus, SelectedColor } from "../../features/timer/timer.types";
+import {
+  TimerStatus,
+  SelectedColor,
+  TimerTypes,
+} from "../../features/timer/timer.types";
 
 const MainClock = () => {
   const dispatch = useAppDispatch();
-  const { timeLeft, timerStatus, selectedColor } = useAppSelector(
-    (store) => store.timer
-  );
+  const {
+    timeLeft,
+    timerStatus,
+    timerType,
+    selectedColor,
+    pomodoroTimeLeft,
+    shortBreakTimeLeft,
+    longBreakTimeLeft,
+  } = useAppSelector((store) => store.timer);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [progress, setProgress] = useState(100);
+
+  let strokeColor = "";
 
   let radius = 185;
   let barRadius = 161;
-  let strokeWidth = 12
+  let strokeWidth = 12;
 
   const circumference = barRadius * 2 * Math.PI;
-  const strokeDashOffset = circumference - (100 / 100) * circumference;
+  const strokeDashOffset = circumference - (progress / 100) * circumference;
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft - minutes * 60;
@@ -32,7 +45,7 @@ const MainClock = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (timerStatus === TimerStatus.resumed && timeLeft > 0) {
+      if (timerStatus === TimerStatus.resumed && timeLeft >= 0) {
         dispatch(calculateTimeLeft());
       }
     }, 1000);
@@ -47,33 +60,36 @@ const MainClock = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (timerType === TimerTypes.pomodoro && TimerStatus.resumed) {
+      const currentProgress = (timeLeft / pomodoroTimeLeft) * 100;
+      console.log(currentProgress);
+      setProgress(currentProgress);
+    }
+    if (timerType === TimerTypes.shortBreak && TimerStatus.resumed) {
+      const currentProgress = (timeLeft / shortBreakTimeLeft) * 100;
+      setProgress(currentProgress);
+    }
+    if (timerType === TimerTypes.longBreak && TimerStatus.resumed) {
+      const currentProgress = (timeLeft / longBreakTimeLeft) * 100;
+      setProgress(currentProgress);
+    }
+  }, [timeLeft, timerType]);
 
   if (windowWidth < 1280) {
     radius = 140;
     barRadius = 120;
   }
-
-  if(windowWidth < 768){
-    radius = 130
-    barRadius = 110
-    strokeWidth = 11
+  if (windowWidth < 768) {
+    radius = 130;
+    barRadius = 110;
+    strokeWidth = 11;
   }
-
-  if(windowWidth < 640){
-    radius = 112
-    barRadius = 95
-    strokeWidth = 10
+  if (windowWidth < 640) {
+    radius = 112;
+    barRadius = 95;
+    strokeWidth = 10;
   }
-
-  const handleTimerBtn = () => {
-    if (timerStatus === TimerStatus.paused) {
-      dispatch(toggleTimerStatus(TimerStatus.resumed));
-    } else {
-      dispatch(toggleTimerStatus(TimerStatus.paused));
-    }
-  };
-
-  let strokeColor = "";
 
   if (selectedColor === SelectedColor.red) {
     strokeColor = "rgb(244 63 94)";
@@ -84,6 +100,14 @@ const MainClock = () => {
   if (selectedColor === SelectedColor.purple) {
     strokeColor = "rgb(168 85 247)";
   }
+
+  const handleTimerBtn = () => {
+    if (timerStatus === TimerStatus.paused) {
+      dispatch(toggleTimerStatus(TimerStatus.resumed));
+    } else {
+      dispatch(toggleTimerStatus(TimerStatus.paused));
+    }
+  };
 
   return (
     <div
@@ -109,7 +133,7 @@ const MainClock = () => {
           >
             {timerStatus === TimerStatus.paused ? "resume" : "pause"}
           </button>
-          <svg className="absolute bg-indigo-950 w-full h-full rounded-full origin-center p-0 ">
+          <svg className="absolute bg-indigo-950 w-full h-full rounded-full origin-center -rotate-90 p-0 ">
             <circle
               fill="transparent"
               strokeWidth={strokeWidth}
