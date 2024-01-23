@@ -74,7 +74,13 @@ const MainClock = () => {
       const currentProgress = (timeLeft / longBreakTimeLeft) * 100;
       setProgress(currentProgress);
     }
-  }, [timeLeft, timerType]);
+  }, [
+    timeLeft,
+    timerType,
+    pomodoroTimeLeft,
+    shortBreakTimeLeft,
+    longBreakTimeLeft,
+  ]);
 
   if (windowWidth < 1280) {
     radius = 140;
