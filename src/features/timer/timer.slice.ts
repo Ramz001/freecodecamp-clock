@@ -12,7 +12,7 @@ import {
   changeSelectedFontReducer,
   changeTimerTypeReducer,
   toggleTimerStatusReducer,
-  configureSettingsReducer
+  configureSettingsReducer,
 } from "./timer.reducers";
 
 const initialState: TimerStateTypes = {
@@ -39,7 +39,7 @@ const timer = createSlice({
     changeSelectedColor: changeSelectedColorReducer,
     changeSelectedFont: changeSelectedFontReducer,
     toggleTimerStatus: toggleTimerStatusReducer,
-    configureSettings: configureSettingsReducer
+    configureSettings: configureSettingsReducer,
   },
 });
 
@@ -50,7 +50,7 @@ export const {
   changeSelectedFont,
   toggleTimerStatus,
   calculateTimeLeft,
-  configureSettings
+  configureSettings,
 } = timer.actions;
 
 export default timer.reducer;

@@ -3,11 +3,11 @@ import timerReducer from "../features/timer/timer.slice";
 
 const store = configureStore({
   reducer: {
-    timer: timerReducer
-  }
-})
+    timer: timerReducer,
+  },
+});
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-export default store
+export default store;

@@ -33,8 +33,8 @@ const MainClock = () => {
   let barRadius = 161;
   let strokeWidth = 12;
 
-  const circumference = barRadius * 2 * Math.PI;
-  const strokeDashOffset = circumference - (progress / 100) * circumference;
+  let circumference = barRadius * 2 * Math.PI;
+  let strokeDashOffset = circumference - (progress / 100) * circumference;
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft - minutes * 60;
@@ -85,16 +85,22 @@ const MainClock = () => {
   if (windowWidth < 1280) {
     radius = 140;
     barRadius = 120;
+    circumference = barRadius * 2 * Math.PI;
+    strokeDashOffset = circumference - (progress / 100) * circumference;
   }
   if (windowWidth < 768) {
     radius = 130;
     barRadius = 110;
     strokeWidth = 11;
+    circumference = barRadius * 2 * Math.PI;
+    strokeDashOffset = circumference - (progress / 100) * circumference;
   }
   if (windowWidth < 640) {
     radius = 112;
     barRadius = 95;
     strokeWidth = 10;
+    circumference = barRadius * 2 * Math.PI;
+    strokeDashOffset = circumference - (progress / 100) * circumference;
   }
 
   if (selectedColor === SelectedColor.red) {

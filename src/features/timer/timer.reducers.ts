@@ -74,11 +74,11 @@ export const configureSettingsReducer = (
     selectedColor,
   } = action.payload;
 
-  state.pomodoroTimeLeft = pomodoroTimeLeft
-  state.shortBreakTimeLeft = shortBreakTimeLeft
-  state.longBreakTimeLeft = longBreakTimeLeft
-  state.selectedColor = selectedColor
-  state.selectedFont = selectedFont
+  state.pomodoroTimeLeft = pomodoroTimeLeft;
+  state.shortBreakTimeLeft = shortBreakTimeLeft;
+  state.longBreakTimeLeft = longBreakTimeLeft;
+  state.selectedColor = selectedColor;
+  state.selectedFont = selectedFont;
 };
 
 export const toggleTimerStatusReducer = (

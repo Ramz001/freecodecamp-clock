@@ -1,22 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
+@layer base {
   /* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
-input[type=number] {
-  -moz-appearance: textfield;
-  appearance: auto;
-}
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: auto;
+  }
 }
 
 @layer components {
@@ -34,15 +33,15 @@ input[type=number] {
     @apply w-8 h-8 rounded-full cursor-pointer flex justify-center items-center 
     bg-slate-100;
   }
-  .timer-outer-circle-shadow{
+  .timer-outer-circle-shadow {
     box-shadow: 2rem 2rem 8rem 0rem rgb(23 37 84),
       -1rem -1rem 8rem 0rem rgb(49 46 128);
   }
-  .timer-inner-circle{
+  .timer-inner-circle {
     @apply relative w-full h-full bg-slate-900 rounded-full p-6 md:p-8 flex 
-    justify-center items-center text-white z-10 flex-col 
+    justify-center items-center text-white z-10 flex-col;
   }
-  .progress-svg{
-    @apply w-full h-full absolute -z-10 -rotate-90 origin-center bg-green-500 rounded-full
+  .progress-svg {
+    @apply w-full h-full absolute -z-10 -rotate-90 origin-center bg-green-500 rounded-full;
   }
 }
