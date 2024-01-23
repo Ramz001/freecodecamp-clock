@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   useAppSelector,
   useAppDispatch,
@@ -14,9 +14,21 @@ const MainClock = () => {
   const { timeLeft, timerStatus, selectedColor } = useAppSelector(
     (store) => store.timer
   );
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  let radius = 185;
+  let barRadius = 161;
+  let strokeWidth = 12
+
+  const circumference = barRadius * 2 * Math.PI;
+  const strokeDashOffset = circumference - (100 / 100) * circumference;
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft - minutes * 60;
+
+  const changeWindowWidth = () => {
+    setWindowWidth(window.innerWidth);
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,6 +38,32 @@ const MainClock = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, [timeLeft, timerStatus, dispatch]);
+
+  useEffect(() => {
+    window.addEventListener("resize", changeWindowWidth);
+
+    return () => {
+      window.removeEventListener("resize", changeWindowWidth);
+    };
+  }, []);
+
+
+  if (windowWidth < 1280) {
+    radius = 140;
+    barRadius = 120;
+  }
+
+  if(windowWidth < 768){
+    radius = 130
+    barRadius = 110
+    strokeWidth = 11
+  }
+
+  if(windowWidth < 640){
+    radius = 112
+    barRadius = 95
+    strokeWidth = 10
+  }
 
   const handleTimerBtn = () => {
     if (timerStatus === TimerStatus.paused) {
@@ -38,7 +76,7 @@ const MainClock = () => {
   let strokeColor = "";
 
   if (selectedColor === SelectedColor.red) {
-    strokeColor = "rgb(239 68 68)";
+    strokeColor = "rgb(244 63 94)";
   }
   if (selectedColor === SelectedColor.blue) {
     strokeColor = "rgb(59 130 246)";
@@ -54,11 +92,11 @@ const MainClock = () => {
     >
       <div
         className="w-full h-full rounded-full bg-gradient-to-br from-indigo-950 
-    to-indigo-900 p-6 timer-outer-circle-shadow"
+    to-indigo-900 p-4 md:p-5 xl:p-6 timer-outer-circle-shadow"
       >
         <div
           className="flex relative flex-col justify-center items-center h-full gap-y-5
-         bg-indigo-950 rounded-full p-2"
+         bg-indigo-950 rounded-full"
         >
           <span className="text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-bold z-10">
             {minutes < 10 ? "0" + minutes : minutes}:
@@ -71,26 +109,15 @@ const MainClock = () => {
           >
             {timerStatus === TimerStatus.paused ? "resume" : "pause"}
           </button>
-          <svg className="absolute bg-indigo-950 w-full h-full rounded-full origin-center rotate-[270deg]">
-            {/* <circle
-              color="rgb(30 27 75)"
-              cx="170" 
-              cy="170" 
-              r="140"
-              stroke-width="3" 
-              fill="red"
-              strokeLinecap="round"
-              strokeDashoffset={0}
-              strokeDasharray={`12 12`}
-            /> */}
+          <svg className="absolute bg-indigo-950 w-full h-full rounded-full origin-center p-0 ">
             <circle
               fill="transparent"
-              strokeWidth={12}
-              strokeDasharray={`${10} ${0}`}
-              strokeDashoffset={20}
-              r={160}
-              cx={186}
-              cy={178}
+              strokeWidth={strokeWidth}
+              strokeDasharray={`${circumference} ${circumference}`}
+              strokeDashoffset={strokeDashOffset}
+              r={barRadius}
+              cx={radius}
+              cy={radius}
               strokeLinecap="round"
               stroke={strokeColor}
             ></circle>
