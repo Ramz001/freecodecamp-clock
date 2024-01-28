@@ -20,11 +20,11 @@ import {
 } from "../../features/timer/timer.types";
 import { useState, FC } from "react";
 
-type SettingsPopup = {
+type SettingsPopupTypes = {
   handlePopup: () => void;
 };
 
-const SettingsPopup: FC<SettingsPopup> = ({ handlePopup }) => {
+const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
   const {
     selectedColor,
     selectedFont,
@@ -113,7 +113,7 @@ const SettingsPopup: FC<SettingsPopup> = ({ handlePopup }) => {
     dispatch(configureSettings(settings));
     dispatch(togglePopup());
   };
-  
+
   return (
     <Backdrop onClick={handlePopup}>
       <div
