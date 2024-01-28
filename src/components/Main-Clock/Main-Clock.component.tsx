@@ -8,29 +8,21 @@ import {
   calculateTimeLeft,
   repeatTimeLeft,
 } from "../../features/timer/timer.slice";
-import {
-  TimerStatus,
-  SelectedColor,
-  TimerTypes,
-} from "../../features/timer/timer.types";
+import { TimerStatus, SelectedColor } from "../../features/timer/timer.types";
 import useSound from "use-sound";
 import StartSound from "../../assets/sounds/start.wav";
 import StopSound from "../../assets/sounds/stop.wav";
 
 const MainClock = () => {
   const dispatch = useAppDispatch();
-  const {
-    timeLeft,
-    timerStatus,
-    timerType,
-    selectedColor,
-    pomodoroTimeLeft,
-    shortBreakTimeLeft,
-    longBreakTimeLeft,
-    volume
+  const { 
+    timeLeft, 
+    timerStatus, 
+    selectedColor, 
+    volume, 
+    progress 
   } = useAppSelector((store) => store.timer);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [progress, setProgress] = useState(100);
 
   const [start] = useSound(StartSound, {
     interrupt: true,
@@ -79,37 +71,6 @@ const MainClock = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (
-      timerType === TimerTypes.pomodoro &&
-      timerStatus === TimerStatus.resumed
-    ) {
-      const currentProgress = (timeLeft / pomodoroTimeLeft) * 100;
-      setProgress(currentProgress);
-    }
-    if (
-      timerType === TimerTypes.shortBreak &&
-      timerStatus === TimerStatus.resumed
-    ) {
-      const currentProgress = (timeLeft / shortBreakTimeLeft) * 100;
-      setProgress(currentProgress);
-    }
-    if (
-      timerType === TimerTypes.longBreak &&
-      timerStatus === TimerStatus.resumed
-    ) {
-      const currentProgress = (timeLeft / longBreakTimeLeft) * 100;
-      setProgress(currentProgress);
-    }
-  }, [
-    timeLeft,
-    timerType,
-    pomodoroTimeLeft,
-    shortBreakTimeLeft,
-    longBreakTimeLeft,
-    timerStatus,
-  ]);
-
   if (windowWidth < 1280) {
     radius = 140;
     barRadius = 120;
@@ -130,7 +91,7 @@ const MainClock = () => {
     circumference = barRadius * 2 * Math.PI;
     strokeDashOffset = circumference - (progress / 100) * circumference;
   }
-  if(windowWidth < 375){
+  if (windowWidth < 375) {
     radius = 112;
     barRadius = 95;
     strokeWidth = 10;
@@ -169,23 +130,19 @@ const MainClock = () => {
       volume && start();
       dispatch(toggleTimerStatus(TimerStatus.resumed));
       dispatch(repeatTimeLeft());
-      setProgress(100);
     }
   };
   return (
     <div
-      className="xl:w-[26rem] xl:h-[26rem] md:h-80 md:w-80 sm:w-72 sm:h-72 xs:w-[17rem] xs:h-[17rem] w-64 h-64 relative 
-      text-blue-200 mx-auto rounded-full shadow-2xl"
+      className="xl:w-[26rem] xl:h-[26rem] md:h-80 md:w-80 sm:w-72 sm:h-72 xs:w-[17rem] xs:h-[17rem] w-64 h-64 relative text-blue-200 mx-auto rounded-full shadow-2xl"
     >
       <div
-        className="w-full h-full rounded-full bg-gradient-to-br from-indigo-950 
-    to-indigo-900 p-4 md:p-5 xl:p-6 timer-outer-circle-shadow"
+        className="w-full h-full p-4 rounded-full bg-gradient-to-br from-indigo-950 to-indigo-900 md:p-5 xl:p-6 timer-outer-circle-shadow"
       >
         <div
-          className="flex relative flex-col justify-center items-center h-full gap-y-5
-         bg-indigo-950 rounded-full"
+          className="relative flex flex-col items-center justify-center h-full rounded-full gap-y-5 bg-indigo-950"
         >
-          <span className="text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-bold z-10">
+          <span className="z-10 text-6xl font-bold md:text-7xl lg:text-7xl xl:text-8xl">
             {minutes < 10 ? "0" + minutes : minutes}:
             {seconds < 10 ? "0" + seconds : seconds}
           </span>
@@ -196,7 +153,7 @@ const MainClock = () => {
           >
             {timerTitle}
           </button>
-          <svg className="absolute bg-indigo-950 w-full h-full rounded-full origin-center -rotate-90 p-0 ">
+          <svg className="absolute w-full h-full p-0 origin-center -rotate-90 rounded-full bg-indigo-950 ">
             <circle
               fill="transparent"
               strokeWidth={strokeWidth}

@@ -16,12 +16,11 @@ const Settings = () => {
   };
 
   return (
-    <div className="flex justify-center items-center mx-auto">
+    <div className="flex items-center justify-center mx-auto">
       <img
         src={GearSolid}
         alt="gear icon"
-        className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 cursor-pointer active:rotate-90 
-        hover:rotate-90 selection:rotate-90 ease-linear delay-100"
+        className="w-5 h-5 ease-linear delay-100 cursor-pointer sm:w-6 sm:h-6 md:w-8 md:h-8 active:rotate-90 hover:rotate-90 selection:rotate-90"
         onClick={handlePopup}
       />
 

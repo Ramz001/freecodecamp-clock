@@ -17,14 +17,17 @@ export const changeTimerTypeReducer = (
   if (buttonType === TimerTypes.pomodoro) {
     state.timerType = TimerTypes.pomodoro;
     state.timeLeft = state.pomodoroTimeLeft;
+    state.progress = 100;
   }
   if (buttonType === TimerTypes.shortBreak) {
     state.timerType = TimerTypes.shortBreak;
     state.timeLeft = state.shortBreakTimeLeft;
+    state.progress = 100;
   }
   if (buttonType === TimerTypes.longBreak) {
     state.timerType = TimerTypes.longBreak;
     state.timeLeft = state.longBreakTimeLeft;
+    state.progress = 100;
   }
 };
 
@@ -79,6 +82,16 @@ export const configureSettingsReducer = (
   state.longBreakTimeLeft = longBreakTimeLeft;
   state.selectedColor = selectedColor;
   state.selectedFont = selectedFont;
+  state.progress = 100;
+  if (state.timerType === TimerTypes.pomodoro) {
+    state.timeLeft = state.pomodoroTimeLeft;
+  }
+  if (state.timerType === TimerTypes.shortBreak) {
+    state.timeLeft = state.shortBreakTimeLeft;
+  }
+  if (state.timerType === TimerTypes.longBreak) {
+    state.timeLeft = state.longBreakTimeLeft;
+  }
 };
 
 export const toggleTimerStatusReducer = (
@@ -91,6 +104,15 @@ export const toggleTimerStatusReducer = (
 export const calculateTimeLeftReducer = (state: TimerStateTypes) => {
   if (state.timerStatus === TimerStatus.resumed) {
     state.timeLeft = state.timeLeft - 1;
+    if (state.timerType === TimerTypes.pomodoro) {
+      state.progress = (state.timeLeft / state.pomodoroTimeLeft) * 100;
+    }
+    if (state.timerType === TimerTypes.shortBreak) {
+      state.progress = (state.timeLeft / state.shortBreakTimeLeft) * 100;
+    }
+    if (state.timerType === TimerTypes.longBreak) {
+      state.progress = (state.timeLeft / state.longBreakTimeLeft) * 100;
+    }
   }
 };
 
@@ -111,5 +133,5 @@ export const togglePopupReducer = (state: TimerStateTypes) => {
 };
 
 export const toggleVolumeReducer = (state: TimerStateTypes) => {
-  state.volume = !state.volume
-}
+  state.volume = !state.volume;
+};

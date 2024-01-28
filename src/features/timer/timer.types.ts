@@ -32,6 +32,7 @@ export type TimerStateTypes = {
   selectedFont: SelectedFont;
   selectedColor: SelectedColor;
   volume: boolean;
+  progress: number;
 };
 
 export type SettingsType = {

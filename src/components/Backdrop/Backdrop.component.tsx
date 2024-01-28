@@ -8,7 +8,7 @@ export type BackdropTypes = {
 const Backdrop: FC<BackdropTypes> = ({ children, onClick }) => {
   return (
     <div
-      className="absolute bg-black bg-opacity-15 w-full h-full top-0 left-0 flex justify-center items-center"
+      className="absolute top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-15"
       onClick={onClick}
     >
       {children}

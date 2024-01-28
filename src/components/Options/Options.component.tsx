@@ -17,8 +17,7 @@ const Options = () => {
 
   return (
     <div
-      className="bg-indigo-950 flex px-3 py-2 gap-2 rounded-full mx-auto 
-    justify-center items-center text-gray-300 text-lg font-sans relative font-medium"
+      className="relative flex items-center justify-center gap-2 px-3 py-2 mx-auto font-sans text-lg font-medium text-gray-300 rounded-full bg-indigo-950"
     >
       <button
         className={`${

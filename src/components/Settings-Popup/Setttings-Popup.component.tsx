@@ -117,11 +117,11 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
   return (
     <Backdrop onClick={handlePopup}>
       <div
-        className="bg-gray-100 px-3 xs:px-6 md:px-8 pb-8 pt-4 opacity-100 z-10 rounded-2xl text-gray-800 relative"
+        className="settings-popup-container"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center border-b border-gray-500 justify-between h-16">
-          <h3 className="text-2xl sm:text-3xl font-bold">Settings</h3>
+        <div className="flex items-center justify-between h-16 border-b border-gray-500">
+          <h3 className="text-2xl font-bold sm:text-3xl">Settings</h3>
           <img
             src={XMarkSolid}
             alt="x mark icon"
@@ -130,18 +130,17 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
           />
         </div>
         <div className="my-6">
-          <h4 className="settings-title mb-4">Time(minutes)</h4>
+          <h4 className="mb-4 settings-title">Time(minutes)</h4>
           <div
-            className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 text-xs tracking-wide font-normal 
-                text-gray-500 sm:text-base border-b border-gray-500 pb-4"
+            className="settings-input-btns-container"
           >
-            <div className="flex-col flex justify-center items-start relative">
+            <div className="relative flex flex-col items-start justify-center">
               <label htmlFor={TimerTypes.pomodoro}>pomodoro</label>
               <input
                 type="number"
                 id={TimerTypes.pomodoro}
-                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
-                    bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
+                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 
+                rounded-xl bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
                 value={Math.floor(settings.pomodoroTimeLeft / 60)}
                 readOnly
               />
@@ -164,13 +163,13 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
                 />
               </div>
             </div>
-            <div className="flex flex-col justify-center items-start relative">
+            <div className="relative flex flex-col items-start justify-center">
               <label htmlFor={TimerTypes.shortBreak}>short break</label>
               <input
                 type="number"
                 id={TimerTypes.shortBreak}
-                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
-                    bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
+                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 
+                rounded-xl bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
                 value={Math.floor(settings.shortBreakTimeLeft / 60)}
                 readOnly
               />
@@ -193,13 +192,13 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
                 />
               </div>
             </div>
-            <div className="flex flex-col justify-center items-start relative">
+            <div className="relative flex flex-col items-start justify-center">
               <label htmlFor={TimerTypes.longBreak}>long break</label>
               <input
                 type="number"
                 id={TimerTypes.longBreak}
-                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
-                    bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
+                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 
+                rounded-xl bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
                 value={Math.floor(settings.longBreakTimeLeft / 60)}
                 readOnly
               />
@@ -224,7 +223,7 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
             </div>
           </div>
         </div>
-        <div className="border-gray-500 border-b flex justify-between items-center pb-6">
+        <div className="flex items-center justify-between pb-6 border-b border-gray-500">
           <h2 className={`settings-title`}>Sounds</h2>
           <div className="flex gap-3">
             <button
@@ -245,7 +244,7 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
             </button>
           </div>
         </div>
-        <div className="flex justify-between items-center border-b border-gray-500 py-6">
+        <div className="flex items-center justify-between py-6 border-b border-gray-500">
           <h4 className="settings-title">Font</h4>
           <div className="flex gap-4">
             <button
@@ -280,8 +279,8 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
             </button>
           </div>
         </div>
-        <div className="flex justify-between items-center">
-          <h4 className="settings-title py-6">Color</h4>
+        <div className="flex items-center justify-between">
+          <h4 className="py-6 settings-title">Color</h4>
           <div className="flex gap-4">
             <span
               onClick={() => handleColorBtn(SelectedColor.red)}
@@ -310,9 +309,9 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
           </div>
         </div>
         <button
-          className={`${selectedColor} text-white font-semibold font-lg 
-              py-3 px-10 rounded-xl absolute -bottom-5 right-0 mx-auto left-0 w-32
-              flex justify-center items-center shadow-md`}
+          className={`${selectedColor} text-white font-semibold font-lg py-3 px-10 
+          rounded-xl absolute -bottom-5 right-0 mx-auto left-0 w-32 flex justify-center 
+          items-center shadow-md`}
           onClick={handleSettings}
         >
           Apply
