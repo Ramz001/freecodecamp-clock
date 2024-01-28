@@ -13,6 +13,8 @@ import {
   changeTimerTypeReducer,
   toggleTimerStatusReducer,
   configureSettingsReducer,
+  togglePopupReducer,
+  repeatTimeLeftReducer,
 } from "./timer.reducers";
 
 const initialState: TimerStateTypes = {
@@ -31,15 +33,14 @@ const timer = createSlice({
   name: "timer",
   initialState,
   reducers: {
-    togglePopup: (state) => {
-      state.isSettingsModalOpen = !state.isSettingsModalOpen;
-    },
+    togglePopup: togglePopupReducer,
     calculateTimeLeft: calculateTimeLeftReducer,
     changeTimerType: changeTimerTypeReducer,
     changeSelectedColor: changeSelectedColorReducer,
     changeSelectedFont: changeSelectedFontReducer,
     toggleTimerStatus: toggleTimerStatusReducer,
     configureSettings: configureSettingsReducer,
+    repeatTimeLeft: repeatTimeLeftReducer,
   },
 });
 
@@ -51,6 +52,7 @@ export const {
   toggleTimerStatus,
   calculateTimeLeft,
   configureSettings,
+  repeatTimeLeft,
 } = timer.actions;
 
 export default timer.reducer;

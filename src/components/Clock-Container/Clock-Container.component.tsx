@@ -1,7 +1,7 @@
 import Icon from "../Icon/Icon.component";
 import Options from "../Options/Options.component";
 import MainClock from "../Main-Clock/Main-Clock.component";
-import SettingsPopup from "../Settings-Popup/Settings-Popup.component";
+import SettingsPopup from "../Settings/Settings.component";
 import { useAppSelector } from "../../features/timer/timer.hooks";
 
 const ClockContainer = () => {

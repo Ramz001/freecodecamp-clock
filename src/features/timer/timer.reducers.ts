@@ -93,3 +93,19 @@ export const calculateTimeLeftReducer = (state: TimerStateTypes) => {
     state.timeLeft = state.timeLeft - 1;
   }
 };
+
+export const repeatTimeLeftReducer = (state: TimerStateTypes) => {
+  if (state.timerType === TimerTypes.pomodoro) {
+    state.timeLeft = state.pomodoroTimeLeft;
+  }
+  if (state.timerType === TimerTypes.shortBreak) {
+    state.timeLeft = state.shortBreakTimeLeft;
+  }
+  if (state.timerType === TimerTypes.longBreak) {
+    state.timeLeft = state.longBreakTimeLeft;
+  }
+};
+
+export const togglePopupReducer = (state: TimerStateTypes) => {
+  state.isSettingsModalOpen = !state.isSettingsModalOpen;
+};

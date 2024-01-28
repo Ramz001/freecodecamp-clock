@@ -6,12 +6,16 @@ import {
 import {
   toggleTimerStatus,
   calculateTimeLeft,
+  repeatTimeLeft,
 } from "../../features/timer/timer.slice";
 import {
   TimerStatus,
   SelectedColor,
   TimerTypes,
 } from "../../features/timer/timer.types";
+import useSound from "use-sound";
+import StartSound from "../../assets/sounds/start.wav";
+import StopSound from "../../assets/sounds/stop.wav";
 
 const MainClock = () => {
   const dispatch = useAppDispatch();
@@ -27,11 +31,22 @@ const MainClock = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [progress, setProgress] = useState(100);
 
-  let strokeColor = "";
+  const [start] = useSound(StartSound, {
+    interrupt: true,
+    volume: 1,
+  });
+
+  const [stop] = useSound(StopSound, {
+    interrupt: true,
+    volume: 1,
+  });
+
+  let timerTitle = "";
 
   let radius = 185;
   let barRadius = 161;
   let strokeWidth = 12;
+  let strokeColor = "";
 
   let circumference = barRadius * 2 * Math.PI;
   let strokeDashOffset = circumference - (progress / 100) * circumference;
@@ -45,12 +60,15 @@ const MainClock = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (timerStatus === TimerStatus.resumed && timeLeft >= 0) {
+      if (timerStatus === TimerStatus.resumed && timeLeft > 0) {
         dispatch(calculateTimeLeft());
+      }
+      if (timeLeft === 0) {
+        stop();
       }
     }, 1000);
     return () => clearInterval(interval);
-  }, [timeLeft, timerStatus, dispatch]);
+  }, [timeLeft, timerStatus, dispatch, stop]);
 
   useEffect(() => {
     window.addEventListener("resize", changeWindowWidth);
@@ -61,16 +79,24 @@ const MainClock = () => {
   }, []);
 
   useEffect(() => {
-    if (timerType === TimerTypes.pomodoro && TimerStatus.resumed) {
+    if (
+      timerType === TimerTypes.pomodoro &&
+      timerStatus === TimerStatus.resumed
+    ) {
       const currentProgress = (timeLeft / pomodoroTimeLeft) * 100;
-      console.log(currentProgress);
       setProgress(currentProgress);
     }
-    if (timerType === TimerTypes.shortBreak && TimerStatus.resumed) {
+    if (
+      timerType === TimerTypes.shortBreak &&
+      timerStatus === TimerStatus.resumed
+    ) {
       const currentProgress = (timeLeft / shortBreakTimeLeft) * 100;
       setProgress(currentProgress);
     }
-    if (timerType === TimerTypes.longBreak && TimerStatus.resumed) {
+    if (
+      timerType === TimerTypes.longBreak &&
+      timerStatus === TimerStatus.resumed
+    ) {
       const currentProgress = (timeLeft / longBreakTimeLeft) * 100;
       setProgress(currentProgress);
     }
@@ -80,6 +106,7 @@ const MainClock = () => {
     pomodoroTimeLeft,
     shortBreakTimeLeft,
     longBreakTimeLeft,
+    timerStatus,
   ]);
 
   if (windowWidth < 1280) {
@@ -113,14 +140,30 @@ const MainClock = () => {
     strokeColor = "rgb(168 85 247)";
   }
 
+  if (timerStatus === TimerStatus.paused) {
+    timerTitle = "resume";
+  } else if (timeLeft === 0) {
+    timerTitle = "repeat";
+  } else {
+    timerTitle = "pause";
+  }
+
   const handleTimerBtn = () => {
     if (timerStatus === TimerStatus.paused) {
+      start();
       dispatch(toggleTimerStatus(TimerStatus.resumed));
-    } else {
+    }
+    if (timerStatus === TimerStatus.resumed) {
+      stop();
       dispatch(toggleTimerStatus(TimerStatus.paused));
     }
+    if (timeLeft === 0 && timerStatus === TimerStatus.resumed) {
+      start();
+      dispatch(toggleTimerStatus(TimerStatus.resumed));
+      dispatch(repeatTimeLeft());
+      setProgress(100);
+    }
   };
-
   return (
     <div
       className="xl:w-[26rem] xl:h-[26rem] md:h-80 md:w-80 sm:w-72 sm:h-72 w-64 h-64 relative 
@@ -143,7 +186,7 @@ const MainClock = () => {
             tracking-[1rem] mx-auto uppercase pl-4 hover:opacity-80 z-10"
             onClick={handleTimerBtn}
           >
-            {timerStatus === TimerStatus.paused ? "resume" : "pause"}
+            {timerTitle}
           </button>
           <svg className="absolute bg-indigo-950 w-full h-full rounded-full origin-center -rotate-90 p-0 ">
             <circle
