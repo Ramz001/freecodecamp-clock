@@ -109,3 +109,7 @@ export const repeatTimeLeftReducer = (state: TimerStateTypes) => {
 export const togglePopupReducer = (state: TimerStateTypes) => {
   state.isSettingsModalOpen = !state.isSettingsModalOpen;
 };
+
+export const toggleVolumeReducer = (state: TimerStateTypes) => {
+  state.volume = !state.volume
+}

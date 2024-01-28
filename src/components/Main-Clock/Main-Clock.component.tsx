@@ -27,18 +27,19 @@ const MainClock = () => {
     pomodoroTimeLeft,
     shortBreakTimeLeft,
     longBreakTimeLeft,
+    volume
   } = useAppSelector((store) => store.timer);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [progress, setProgress] = useState(100);
 
   const [start] = useSound(StartSound, {
     interrupt: true,
-    volume: 1,
+    volume: volume ? 1 : 0,
   });
 
   const [stop] = useSound(StopSound, {
     interrupt: true,
-    volume: 1,
+    volume: volume ? 1 : 0,
   });
 
   let timerTitle = "";
@@ -64,11 +65,11 @@ const MainClock = () => {
         dispatch(calculateTimeLeft());
       }
       if (timeLeft === 0) {
-        stop();
+        volume && stop();
       }
     }, 1000);
     return () => clearInterval(interval);
-  }, [timeLeft, timerStatus, dispatch, stop]);
+  }, [timeLeft, timerStatus, dispatch, stop, volume]);
 
   useEffect(() => {
     window.addEventListener("resize", changeWindowWidth);
@@ -123,6 +124,13 @@ const MainClock = () => {
     strokeDashOffset = circumference - (progress / 100) * circumference;
   }
   if (windowWidth < 640) {
+    radius = 120;
+    barRadius = 105;
+    strokeWidth = 10;
+    circumference = barRadius * 2 * Math.PI;
+    strokeDashOffset = circumference - (progress / 100) * circumference;
+  }
+  if(windowWidth < 375){
     radius = 112;
     barRadius = 95;
     strokeWidth = 10;
@@ -150,15 +158,15 @@ const MainClock = () => {
 
   const handleTimerBtn = () => {
     if (timerStatus === TimerStatus.paused) {
-      start();
+      volume && start();
       dispatch(toggleTimerStatus(TimerStatus.resumed));
     }
     if (timerStatus === TimerStatus.resumed) {
-      stop();
+      volume && stop();
       dispatch(toggleTimerStatus(TimerStatus.paused));
     }
     if (timeLeft === 0 && timerStatus === TimerStatus.resumed) {
-      start();
+      volume && start();
       dispatch(toggleTimerStatus(TimerStatus.resumed));
       dispatch(repeatTimeLeft());
       setProgress(100);
@@ -166,7 +174,7 @@ const MainClock = () => {
   };
   return (
     <div
-      className="xl:w-[26rem] xl:h-[26rem] md:h-80 md:w-80 sm:w-72 sm:h-72 w-64 h-64 relative 
+      className="xl:w-[26rem] xl:h-[26rem] md:h-80 md:w-80 sm:w-72 sm:h-72 xs:w-[17rem] xs:h-[17rem] w-64 h-64 relative 
       text-blue-200 mx-auto rounded-full shadow-2xl"
     >
       <div

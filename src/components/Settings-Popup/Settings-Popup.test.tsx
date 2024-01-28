@@ -6,7 +6,7 @@ import store from "../../store/store";
 it("tests settings popup component", () => {
   const component = (
     <Provider store={store}>
-      <SettingsPopup />
+      <SettingsPopup handlePopup={() => console.log('popup')} />
     </Provider>
   );
   render(component);

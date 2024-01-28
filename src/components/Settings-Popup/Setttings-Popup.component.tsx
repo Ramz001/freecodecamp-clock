@@ -11,21 +11,27 @@ import {
 import {
   togglePopup,
   configureSettings,
+  toggleVolume,
 } from "../../features/timer/timer.slice";
 import {
   TimerTypes,
   SelectedColor,
   SelectedFont,
 } from "../../features/timer/timer.types";
-import { useState } from "react";
+import { useState, FC } from "react";
 
-const SettingsPopup = ({ handlePopup }: any) => {
+type SettingsPopup = {
+  handlePopup: () => void;
+};
+
+const SettingsPopup: FC<SettingsPopup> = ({ handlePopup }) => {
   const {
     selectedColor,
     selectedFont,
     pomodoroTimeLeft,
     shortBreakTimeLeft,
     longBreakTimeLeft,
+    volume,
   } = useAppSelector((store) => store.timer);
   const dispatch = useAppDispatch();
   const activeFontStyles = "bg-gray-950 text-gray-100";
@@ -107,11 +113,11 @@ const SettingsPopup = ({ handlePopup }: any) => {
     dispatch(configureSettings(settings));
     dispatch(togglePopup());
   };
-
+  
   return (
     <Backdrop onClick={handlePopup}>
       <div
-        className="bg-gray-100 px-7 sm:px-6 md:px-8 pb-8 pt-4 opacity-100 z-10 rounded-2xl text-gray-800 relative"
+        className="bg-gray-100 px-3 xs:px-6 md:px-8 pb-8 pt-4 opacity-100 z-10 rounded-2xl text-gray-800 relative"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center border-b border-gray-500 justify-between h-16">
@@ -134,7 +140,7 @@ const SettingsPopup = ({ handlePopup }: any) => {
               <input
                 type="number"
                 id={TimerTypes.pomodoro}
-                className="w-60 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
+                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
                     bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
                 value={Math.floor(settings.pomodoroTimeLeft / 60)}
                 readOnly
@@ -163,7 +169,7 @@ const SettingsPopup = ({ handlePopup }: any) => {
               <input
                 type="number"
                 id={TimerTypes.shortBreak}
-                className="w-60 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
+                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
                     bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
                 value={Math.floor(settings.shortBreakTimeLeft / 60)}
                 readOnly
@@ -192,7 +198,7 @@ const SettingsPopup = ({ handlePopup }: any) => {
               <input
                 type="number"
                 id={TimerTypes.longBreak}
-                className="w-60 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
+                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 rounded-xl 
                     bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
                 value={Math.floor(settings.longBreakTimeLeft / 60)}
                 readOnly
@@ -218,7 +224,28 @@ const SettingsPopup = ({ handlePopup }: any) => {
             </div>
           </div>
         </div>
-        <div className="flex justify-between items-center border-b border-gray-500 pb-6">
+        <div className="border-gray-500 border-b flex justify-between items-center pb-6">
+          <h2 className={`settings-title`}>Sounds</h2>
+          <div className="flex gap-3">
+            <button
+              className={`outline-1 outline rounded-xl px-4 py-1 outline-black ${
+                volume && `${selectedColor} text-white`
+              }`}
+              onClick={() => dispatch(toggleVolume())}
+            >
+              On
+            </button>
+            <button
+              className={`outline-1 outline rounded-xl px-4 py-1 outline-black ${
+                !volume && `${selectedColor} text-white`
+              }`}
+              onClick={() => dispatch(toggleVolume())}
+            >
+              Off
+            </button>
+          </div>
+        </div>
+        <div className="flex justify-between items-center border-b border-gray-500 py-6">
           <h4 className="settings-title">Font</h4>
           <div className="flex gap-4">
             <button

@@ -2,7 +2,7 @@ const Icon = () => {
   return (
     <h2
       className="text-blue-200 shadow-sm font-semibold text-center 
-      p-3 text-xl md:text-2xl xl:text-3xl 2xl:text-4xl"
+      p-3 text-xl xs:text-2xl lg:text-3xl 2xl:text-4xl"
     >
       pomodoro
     </h2>

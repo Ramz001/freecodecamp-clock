@@ -20,11 +20,11 @@
 
 @layer components {
   .options-btn {
-    @apply text-sm xl:text-lg h-10 w-[5.5rem] sm:h-10 sm:w-32 md:h-12 md:w-36 xl:h-16 xl:w-44 rounded-full 
+    @apply text-sm xl:text-lg h-10 w-20 xs:w-[6.5rem] sm:h-10 sm:w-32 md:h-12 md:w-36 xl:h-16 xl:w-44 rounded-full 
     shadow-sm hover:text-gray-100 transition delay-75 ease-in-out;
   }
   .settings-title {
-    @apply xl:text-xl text-base sm:text-lg font-normal tracking-[.35rem];
+    @apply xl:text-xl text-sm font-semibold break-all xs:break-normal xs:text-base sm:text-lg xs:font-normal tracking-[.35rem];
   }
   .select-font-btn {
     @apply bg-gray-200 w-8 h-8 rounded-full;
@@ -34,7 +34,7 @@
     bg-slate-100;
   }
   .settings-input-btns {
-    @apply flex flex-col absolute right-3 sm:right-2 bottom-2 md:bottom-2 sm:bottom-2;
+    @apply flex flex-col absolute right-3 sm:right-2 bottom-2 md:bottom-2 sm:bottom-1;
   }
   .timer-outer-circle-shadow {
     box-shadow: 2rem 2rem 8rem 0rem rgb(23 37 84),

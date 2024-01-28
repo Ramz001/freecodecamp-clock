@@ -15,6 +15,7 @@ import {
   configureSettingsReducer,
   togglePopupReducer,
   repeatTimeLeftReducer,
+  toggleVolumeReducer
 } from "./timer.reducers";
 
 const initialState: TimerStateTypes = {
@@ -27,6 +28,7 @@ const initialState: TimerStateTypes = {
   timerStatus: TimerStatus.paused,
   selectedFont: SelectedFont.roboto,
   selectedColor: SelectedColor.red,
+  volume: true
 };
 
 const timer = createSlice({
@@ -41,6 +43,7 @@ const timer = createSlice({
     toggleTimerStatus: toggleTimerStatusReducer,
     configureSettings: configureSettingsReducer,
     repeatTimeLeft: repeatTimeLeftReducer,
+    toggleVolume: toggleVolumeReducer
   },
 });
 
@@ -53,6 +56,7 @@ export const {
   calculateTimeLeft,
   configureSettings,
   repeatTimeLeft,
+  toggleVolume
 } = timer.actions;
 
 export default timer.reducer;
