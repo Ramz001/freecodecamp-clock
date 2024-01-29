@@ -43,7 +43,7 @@
     border-b border-gray-500 sm:flex-row sm:gap-3 md:gap-4 sm:text-base
   }
   .settings-input-btns {
-    @apply absolute flex flex-col right-3 sm:right-2 bottom-2 md:bottom-2 sm:bottom-1;
+    @apply absolute flex flex-col items-center justify-center right-3 xs:gap-1 sm:gap-0 sm:right-2 bottom-2 md:bottom-2 sm:bottom-1;
   }
   .timer-outer-circle-shadow {
     box-shadow: 2rem 2rem 8rem 0rem rgb(23 37 84),

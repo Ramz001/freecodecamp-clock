@@ -18,7 +18,7 @@ import {
   SelectedColor,
   SelectedFont,
 } from "../../features/timer/timer.types";
-import { useState, FC } from "react";
+import { useState, FC, ChangeEvent } from "react";
 
 type SettingsPopupTypes = {
   handlePopup: () => void;
@@ -114,6 +114,24 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
     dispatch(togglePopup());
   };
 
+  const handleInputBtns = (
+    e: ChangeEvent<HTMLInputElement>,
+    type: TimerTypes
+  ) => {
+    const value = e.currentTarget.value;
+    if (Number(value) < 100 && Number(value) > -1) {
+      if (type === TimerTypes.pomodoro) {
+        setSettings({ ...settings, pomodoroTimeLeft: Number(value) * 60 });
+      }
+      if (type === TimerTypes.shortBreak) {
+        setSettings({ ...settings, shortBreakTimeLeft: Number(value) * 60 });
+      }
+      if (type === TimerTypes.longBreak) {
+        setSettings({ ...settings, longBreakTimeLeft: Number(value) * 60 });
+      }
+    }
+  };
+
   return (
     <Backdrop onClick={handlePopup}>
       <div
@@ -131,18 +149,16 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
         </div>
         <div className="my-6">
           <h4 className="mb-4 settings-title">Time(minutes)</h4>
-          <div
-            className="settings-input-btns-container"
-          >
+          <div className="settings-input-btns-container">
             <div className="relative flex flex-col items-start justify-center">
               <label htmlFor={TimerTypes.pomodoro}>pomodoro</label>
               <input
                 type="number"
                 id={TimerTypes.pomodoro}
-                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 
+                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 xs:h-14 sm:h-10 md:h-12 
                 rounded-xl bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
                 value={Math.floor(settings.pomodoroTimeLeft / 60)}
-                readOnly
+                onChange={(e) => handleInputBtns(e, TimerTypes.pomodoro)}
               />
               <div className="settings-input-btns">
                 <img
@@ -168,10 +184,10 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
               <input
                 type="number"
                 id={TimerTypes.shortBreak}
-                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 
+                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 xs:h-14 sm:h-10 md:h-12 
                 rounded-xl bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
                 value={Math.floor(settings.shortBreakTimeLeft / 60)}
-                readOnly
+                onChange={(e) => handleInputBtns(e, TimerTypes.shortBreak)}
               />
               <div className="settings-input-btns">
                 <img
@@ -197,10 +213,10 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
               <input
                 type="number"
                 id={TimerTypes.longBreak}
-                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 sm:h-10 md:h-12 
+                className="w-[17rem] xs:w-72 sm:w-32 md:w-36 h-12 xs:h-14 sm:h-10 md:h-12 
                 rounded-xl bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
                 value={Math.floor(settings.longBreakTimeLeft / 60)}
-                readOnly
+                onChange={(e) => handleInputBtns(e, TimerTypes.longBreak)}
               />
               <div className="settings-input-btns">
                 <img
