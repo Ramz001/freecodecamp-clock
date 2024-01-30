@@ -3,12 +3,13 @@ import MainClock from "./Main-Clock.component";
 import { Provider } from "react-redux";
 import store from "../../store/store";
 
+const mock = (
+  <Provider store={store}>
+    <MainClock />
+  </Provider>
+);
+
 it("renders main clock component", () => {
-  const component = (
-    <Provider store={store}>
-      <MainClock />
-    </Provider>
-  );
-  render(component);
-  expect(component).toBeTruthy();
+  render(mock);
+  
 });

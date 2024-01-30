@@ -1,13 +1,13 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import App from "./App";
 import { Provider } from "react-redux";
 import store from "./store/store";
-import App from "./App";
 
-it("renders the App Component", () => {
-  render(
+it("renders the App component", () => {
+  const component = (
     <Provider store={store}>
       <App />
     </Provider>
   );
+  render(component)
 });

@@ -3,13 +3,14 @@ import ClockContainer from "./Clock-Container.component";
 import { Provider } from "react-redux";
 import store from "../../store/store";
 
+const mock = (
+  <Provider store={store}>
+    <ClockContainer />
+  </Provider>
+);
+
 it("renders clock container", () => {
-  const component = (
-    <Provider store={store}>
-      <ClockContainer />
-    </Provider>
-  );
-  render(component);
+  render(mock);
 
   const elements = screen;
   expect(elements);

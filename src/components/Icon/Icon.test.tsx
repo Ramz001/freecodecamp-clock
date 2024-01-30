@@ -3,6 +3,6 @@ import Icon from "./Icon.component";
 
 it("renders an icon component", () => {
   render(<Icon />);
-  const title = screen.getByText("pomodoro");
-  expect(title).toBeTruthy();
+  const title = screen.getByRole("heading", { name: /pomodoro/ });
+  expect(title).toBeInTheDocument();
 });
