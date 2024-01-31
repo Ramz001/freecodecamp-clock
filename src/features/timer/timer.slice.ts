@@ -26,7 +26,7 @@ const initialState: TimerStateTypes = {
   shortBreakTimeLeft: 300,
   longBreakTimeLeft: 900,
   timerStatus: TimerStatus.paused,
-  selectedFont: SelectedFont.roboto,
+  selectedFont: SelectedFont.serif,
   selectedColor: SelectedColor.red,
   volume: true,
   progress: 100,

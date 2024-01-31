@@ -4,15 +4,17 @@ import { Provider } from "react-redux";
 import store from "../../store/store";
 import { TimerTypes } from "../../features/timer/timer.types";
 
+const mockHandlePopup = jest.fn()
+
 const Mock = (
   <Provider store={store}>
-    <SettingsPopup handlePopup={() => console.log("popup")} />
+    <SettingsPopup handlePopup={mockHandlePopup} />
   </Provider>
 );
 
 describe("tests the settings popup", () => {
   render(Mock);
-  it("tests the input elements", () => {
+  it("tests the input elements change events", () => {
     const pomodoroInput: HTMLInputElement = screen.getByTestId(
       TimerTypes.pomodoro
     );
@@ -30,24 +32,23 @@ describe("tests the settings popup", () => {
     fireEvent.change(longBreakInput, { target: { value: 12 } });
     expect(Number(longBreakInput.value)).toEqual(12);
   });
-
   it("snapshot tests the settings popup", () => {
     expect(Mock).toMatchInlineSnapshot(`
-    <Provider
-      store={
-        Object {
-          "@@observable": [Function],
-          "dispatch": [Function],
-          "getState": [Function],
-          "replaceReducer": [Function],
-          "subscribe": [Function],
-        }
-      }
-    >
-      <SettingsPopup
-        handlePopup={[Function]}
-      />
-    </Provider>
-    `);
+<Provider
+  store={
+    Object {
+      "@@observable": [Function],
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <SettingsPopup
+    handlePopup={[MockFunction]}
+  />
+</Provider>
+`);
   });
 });

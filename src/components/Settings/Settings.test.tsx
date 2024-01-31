@@ -1,4 +1,4 @@
-import { screen, render } from "@testing-library/react";
+import { screen, render, fireEvent } from "@testing-library/react";
 import Settings from "./Settings.component";
 import { Provider } from "react-redux";
 import store from "../../store/store";
@@ -9,8 +9,18 @@ const Mock = (
   </Provider>
 );
 
-it("renders settings component", () => {
+const mockHandlePopup = jest.fn();
+
+it("checks whether pop up works", () => {
   render(Mock);
+  const gearIcon = screen.getByAltText("gear icon");
+  fireEvent.click(gearIcon);
+  const settingsPopup = screen.getByRole("heading", {
+    name: /settings/i,
+    level: 3,
+  });
+  expect(settingsPopup).toBeVisible();
+
   expect(Mock).toMatchInlineSnapshot(`
 <Provider
   store={
@@ -25,5 +35,5 @@ it("renders settings component", () => {
 >
   <Settings />
 </Provider>
-`)
+`);
 });

@@ -144,6 +144,7 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
             src={XMarkSolid}
             alt="x mark icon"
             className="w-6 h-6 cursor-pointer"
+            data-testid='x mark icon'
             onClick={handlePopup}
           />
         </div>
@@ -164,7 +165,7 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
               <div className="settings-input-btns">
                 <img
                   src={AngleUpSolid}
-                  alt="angle down icon"
+                  alt="angle up icon"
                   className="w-4 h-4 cursor-pointer"
                   onClick={() =>
                     handleInputs(operationType.increment, inputType.pomodoro)
@@ -194,7 +195,7 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
               <div className="settings-input-btns">
                 <img
                   src={AngleUpSolid}
-                  alt="angle down icon"
+                  alt="angle up icon"
                   className="w-4 h-4 cursor-pointer"
                   onClick={() =>
                     handleInputs(operationType.increment, inputType.shortBreak)
@@ -224,7 +225,7 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
               <div className="settings-input-btns">
                 <img
                   src={AngleUpSolid}
-                  alt="angle down icon"
+                  alt="angle up icon"
                   className="w-4 h-4 cursor-pointer"
                   onClick={() =>
                     handleInputs(operationType.increment, inputType.longBreak)
