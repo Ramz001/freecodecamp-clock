@@ -3,12 +3,27 @@ import Settings from "./Settings.component";
 import { Provider } from "react-redux";
 import store from "../../store/store";
 
-const mock = (
+const Mock = (
   <Provider store={store}>
     <Settings />
   </Provider>
 );
 
 it("renders settings component", () => {
-  render(mock);
+  render(Mock);
+  expect(Mock).toMatchInlineSnapshot(`
+<Provider
+  store={
+    Object {
+      "@@observable": [Function],
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Settings />
+</Provider>
+`)
 });

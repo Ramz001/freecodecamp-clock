@@ -101,9 +101,11 @@ export const toggleTimerStatusReducer = (
   state.timerStatus = action.payload;
 };
 
-export const calculateTimeLeftReducer = (state: TimerStateTypes) => {
+export const calculateTimeLeftReducer = (state: TimerStateTypes, action: PayloadAction<number>) => {
+  const timeToSet = action.payload
+
   if (state.timerStatus === TimerStatus.resumed) {
-    state.timeLeft = state.timeLeft - 1;
+    state.timeLeft = timeToSet
     if (state.timerType === TimerTypes.pomodoro) {
       state.progress = (state.timeLeft / state.pomodoroTimeLeft) * 100;
     }

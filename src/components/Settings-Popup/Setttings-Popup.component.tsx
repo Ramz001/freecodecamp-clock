@@ -159,6 +159,7 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
                 rounded-xl bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
                 value={Math.floor(settings.pomodoroTimeLeft / 60)}
                 onChange={(e) => handleInputBtns(e, TimerTypes.pomodoro)}
+                data-testid={TimerTypes.pomodoro}
               />
               <div className="settings-input-btns">
                 <img
@@ -188,6 +189,7 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
                 rounded-xl bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
                 value={Math.floor(settings.shortBreakTimeLeft / 60)}
                 onChange={(e) => handleInputBtns(e, TimerTypes.shortBreak)}
+                data-testid={TimerTypes.shortBreak}
               />
               <div className="settings-input-btns">
                 <img
@@ -217,6 +219,7 @@ const SettingsPopup: FC<SettingsPopupTypes> = ({ handlePopup }) => {
                 rounded-xl bg-gray-200 py-2 px-3 text-gray-900 cursor-default"
                 value={Math.floor(settings.longBreakTimeLeft / 60)}
                 onChange={(e) => handleInputBtns(e, TimerTypes.longBreak)}
+                data-testid={TimerTypes.longBreak}
               />
               <div className="settings-input-btns">
                 <img

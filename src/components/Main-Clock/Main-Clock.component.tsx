@@ -12,16 +12,13 @@ import { TimerStatus, SelectedColor } from "../../features/timer/timer.types";
 import useSound from "use-sound";
 import StartSound from "../../assets/sounds/start.wav";
 import StopSound from "../../assets/sounds/stop.wav";
+import TimeUpSound from "../../assets/sounds/time-up.wav";
+import { useTimer } from "react-use-precision-timer";
 
 const MainClock = () => {
   const dispatch = useAppDispatch();
-  const { 
-    timeLeft, 
-    timerStatus, 
-    selectedColor, 
-    volume, 
-    progress 
-  } = useAppSelector((store) => store.timer);
+  const { timeLeft, timerStatus, selectedColor, volume, progress } =
+    useAppSelector((store) => store.timer);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const [start] = useSound(StartSound, {
@@ -31,6 +28,10 @@ const MainClock = () => {
 
   const [stop] = useSound(StopSound, {
     interrupt: true,
+    volume: volume ? 1 : 0,
+  });
+
+  const [timeUp] = useSound(TimeUpSound, {
     volume: volume ? 1 : 0,
   });
 
@@ -51,17 +52,22 @@ const MainClock = () => {
     setWindowWidth(window.innerWidth);
   };
 
+  const handleTimer = () => {
+    dispatch(calculateTimeLeft(timeLeft - 1));
+  };
+
+  const timer = useTimer({ delay: 1000 }, handleTimer);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (timerStatus === TimerStatus.resumed && timeLeft > 0) {
-        dispatch(calculateTimeLeft());
-      }
-      if (timeLeft === 0) {
-        volume && stop();
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [timeLeft, timerStatus, dispatch, stop, volume]);
+    if (timeLeft === 0) {
+      timeUp()
+      timer.pause();
+    }
+    if (timerStatus === TimerStatus.resumed && timeLeft > 0) {
+      timer.start();
+      timer.resume();
+    }
+  }, [timeUp, timeLeft, timer, timerStatus]);
 
   useEffect(() => {
     window.addEventListener("resize", changeWindowWidth);
@@ -133,15 +139,9 @@ const MainClock = () => {
     }
   };
   return (
-    <div
-      className="xl:w-[26rem] xl:h-[26rem] md:h-80 md:w-80 sm:w-72 sm:h-72 xs:w-[17rem] xs:h-[17rem] w-64 h-64 relative text-blue-200 mx-auto rounded-full shadow-2xl"
-    >
-      <div
-        className="w-full h-full p-4 rounded-full bg-gradient-to-br from-indigo-950 to-indigo-900 md:p-5 xl:p-6 timer-outer-circle-shadow"
-      >
-        <div
-          className="relative flex flex-col items-center justify-center h-full rounded-full gap-y-5 bg-indigo-950"
-        >
+    <div className="xl:w-[26rem] xl:h-[26rem] md:h-80 md:w-80 sm:w-72 sm:h-72 xs:w-[17rem] xs:h-[17rem] w-64 h-64 relative text-blue-200 mx-auto rounded-full shadow-2xl">
+      <div className="w-full h-full p-4 rounded-full bg-gradient-to-br from-indigo-950 to-indigo-900 md:p-5 xl:p-6 timer-outer-circle-shadow">
+        <div className="relative flex flex-col items-center justify-center h-full rounded-full gap-y-5 bg-indigo-950">
           <span className="z-10 text-6xl font-bold md:text-7xl lg:text-7xl xl:text-8xl">
             {minutes < 10 ? "0" + minutes : minutes}:
             {seconds < 10 ? "0" + seconds : seconds}

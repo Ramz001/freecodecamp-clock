@@ -5,4 +5,5 @@ it("renders an icon component", () => {
   render(<Icon />);
   const title = screen.getByRole("heading", { name: /pomodoro/ });
   expect(title).toBeInTheDocument();
+  expect(<Icon />).toMatchInlineSnapshot(`<Icon />`)
 });

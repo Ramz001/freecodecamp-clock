@@ -1,15 +1,26 @@
 import { render, screen } from "@testing-library/react";
 import Backdrop from "./Backdrop.component";
 
-const mockComponent = (
+const mockedOnClick = jest.fn()
+
+const Mock = (
   <Backdrop
     children={<h1>Hello</h1>}
-    onClick={() => console.log("toggled settings")}
+    onClick={mockedOnClick}
   />
 );
 
 it("tests the backdrop component", () => {
-  render(mockComponent);
+  render(Mock);
   const childrenElement = screen.getByRole('heading')
   expect(childrenElement).toBeInTheDocument()
+  expect(Mock).toMatchInlineSnapshot(`
+<Backdrop
+  onClick={[MockFunction]}
+>
+  <h1>
+    Hello
+  </h1>
+</Backdrop>
+`)
 });
