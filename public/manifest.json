@@ -1,12 +1,22 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Pomodoro Timer",
+  "name": "This is a simple pomodoro timer website",
   "icons": [
     {
-      "src": "clock-solid.svg",
+      "src": "favicon.svg",
       "type": "image/x-icon",
       "sizes": "64x64 32x32 24x24 16x16"
     }
+  ],
+  "screenshots" : [
+    {
+      "src": "desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Homescreen of Pomodoro Website"
+    }
+   
   ],
   "start_url": ".",
   "display": "standalone",
