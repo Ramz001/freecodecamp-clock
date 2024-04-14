@@ -1,6 +1,6 @@
-A simple Pomodoro timer website with clean and intuitive interface focused on providing the essential features needed to implement the Pomodoro Technique.
+# A simple Pomodoro timer website with clean and intuitive interface focused on providing the essential features needed to implement the Pomodoro Technique
 
-![website image desktop](/public/website%20sample/desktop.png "website sample desktop")
+![website image desktop](/public/desktop.png "website sample desktop")
 
 Here's a description of what you might find on this website:
 
