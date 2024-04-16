@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   useAppSelector,
   useAppDispatch,
@@ -9,7 +9,6 @@ import {
   repeatTimeLeft,
 } from "../../features/timer/timer.slice";
 import { TimerStatus, SelectedColor } from "../../features/timer/timer.types";
-import useSound from "use-sound";
 import StartSound from "../../assets/sounds/start.wav";
 import StopSound from "../../assets/sounds/stop.wav";
 import TimeUpSound from "../../assets/sounds/time-up.wav";
@@ -21,19 +20,9 @@ const MainClock = () => {
     useAppSelector((store) => store.timer);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const [start] = useSound(StartSound, {
-    interrupt: true,
-    volume: volume ? 1 : 0,
-  });
-
-  const [stop] = useSound(StopSound, {
-    interrupt: true,
-    volume: volume ? 1 : 0,
-  });
-
-  const [timeUp] = useSound(TimeUpSound, {
-    volume: volume ? 1 : 0,
-  });
+  const start = new Audio(StartSound);
+  const timeUp = useMemo(() => new Audio(TimeUpSound), []);
+  const stop = new Audio(StopSound);
 
   let timerTitle = "";
 
@@ -60,14 +49,14 @@ const MainClock = () => {
 
   useEffect(() => {
     if (timeLeft === 0) {
-      timeUp()
+      timeUp.play();
       timer.pause();
     }
     if (timerStatus === TimerStatus.resumed && timeLeft > 0) {
       timer.start();
       timer.resume();
     }
-  }, [timeUp, timeLeft, timer, timerStatus]);
+  }, [timeLeft, timer, timerStatus, timeUp]);
 
   useEffect(() => {
     window.addEventListener("resize", changeWindowWidth);
@@ -125,15 +114,15 @@ const MainClock = () => {
 
   const handleTimerBtn = () => {
     if (timerStatus === TimerStatus.paused) {
-      volume && start();
+      volume && start.play();
       dispatch(toggleTimerStatus(TimerStatus.resumed));
     }
     if (timerStatus === TimerStatus.resumed) {
-      volume && stop();
+      volume && stop.play();
       dispatch(toggleTimerStatus(TimerStatus.paused));
     }
     if (timeLeft === 0 && timerStatus === TimerStatus.resumed) {
-      volume && start();
+      volume && start.play();
       dispatch(toggleTimerStatus(TimerStatus.resumed));
       dispatch(repeatTimeLeft());
     }
