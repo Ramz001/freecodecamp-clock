@@ -9,7 +9,7 @@ const ClockContainer = () => {
 
   return (
     <div
-      className={`${selectedFont} bg-blue-950 h-svh md:h-screen relative flex flex-col gap-y-[4.25%] py-[2.25%]`}
+      className={`${selectedFont} bg-blue-950 h-svh md:h-screen relative flex flex-col gap-y-[3%] py-[2.25%]`}
     >
       <Icon />
       <Options />
