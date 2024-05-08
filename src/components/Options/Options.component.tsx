@@ -9,7 +9,7 @@ const Options = () => {
   const { selectedColor, timerType } = useAppSelector((store) => store.timer);
   const dispatch = useAppDispatch();
 
-  const activeButtonStyles = `${selectedColor} text-blue-950 hover:text-blue-950`;
+  const activeButtonStyles = `${selectedColor} text-slate-950 hover:text-slate-900`;
 
   const handleButtons = (buttonType: TimerTypes) => {
     dispatch(changeTimerType(buttonType));
@@ -17,7 +17,8 @@ const Options = () => {
 
   return (
     <div
-      className="relative flex items-center justify-center gap-2 px-3 py-2 mx-auto font-sans text-lg font-medium text-gray-300 rounded-full bg-indigo-950"
+      className="relative flex items-center justify-center gap-2 px-3 py-2 mx-auto font-sans text-lg 
+      font-medium text-gray-300 rounded-full bg-indigo-950"
     >
       <button
         className={`${
